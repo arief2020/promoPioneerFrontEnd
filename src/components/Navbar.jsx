@@ -59,7 +59,7 @@ export default function Navbar() {
                   width={34}
                   height={34}
                 />
-                <span className="hidden font-sans font-bold dark:text-white lg:block text-2xl">
+                <span className="hidden font-sans font-bold dark:text-white lg:block text-2xl text-white">
                   Promo Pioneer
                 </span>
               </Link>

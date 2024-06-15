@@ -65,14 +65,14 @@ export default function Home() {
           <Carousel style={"md:rounded-r-none"} />
         </div>
         <div className="md:w-1/3 hidden md:flex flex-col h-full justify-between">
-          <Link href={"/category"}>
+          <Link href={"/"}>
             <img
               className="object-cover w-full max-h-32 h-1/2 pb-1 rounded-tr-md"
               src="https://img.freepik.com/free-photo/paper-style-black-friday-assortment_23-2149074084.jpg?t=st=1716817263~exp=1716820863~hmac=24df03a9b92a60eb72bd7c1c8eb6960356cf56edd113f7d1871b906e50985e2c&w=1060"
               alt="Promo 1"
             />
           </Link>
-          <Link href={"/category"}>
+          <Link href={"/"}>
             <img
               className="object-cover w-full max-h-32 h-1/2 pt-1 rounded-br-md"
               src="https://img.freepik.com/premium-photo/happy-kid-celebration-halloween-party-child-backgroud-with-copy-space_916191-122640.jpg?w=1380"
