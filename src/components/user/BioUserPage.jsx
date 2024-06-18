@@ -49,7 +49,14 @@ export default function BioUserPage() {
       <h1 className="text-2xl font-bold">Profile</h1>
       <div className="flex flex-col md:flex-row gap-8 md:gap-16 text-sm md:text-base">
         <div className="photo justify-between flex flex-col">
-          <img src={user.avatar} alt="alt" className="rounded-full w-36 h-36" />
+          <img
+            src={
+              user.avatar ||
+              "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?size=338&ext=jpg&ga=GA1.1.2116175301.1718582400&semt=ais_user"
+            }
+            alt="alt"
+            className="rounded-full w-36 h-36"
+          />
           <button
             onClick={handleClick}
             className="mt-3 hidden md:block px-3 py-1.5 font-sans font-semibold text-white hover:text-black hover:bg-white bg-gradient-to-l from-orange-600 to-orange-500 rounded-full shadow-md duration-300"
