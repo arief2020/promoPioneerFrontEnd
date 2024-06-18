@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+"use client";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
@@ -13,13 +13,16 @@ export default function UserOrderPage() {
   useEffect(() => {
     setLoading(true);
     const fetchCheckout = async () => {
-      const check = await fetch("http://localhost:5000/api/users/checkouts", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const check = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/checkouts",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await check.json();
       // console.log(data.checkoutCollection);
       setCheckout(data.checkoutCollection);
@@ -28,15 +31,15 @@ export default function UserOrderPage() {
     fetchCheckout();
   }, []);
 
-  const handlePending = id => {
+  const handlePending = (id) => {
     router.push(`/payment/${id}`);
   };
 
-  const handleUncompleted = id => {
+  const handleUncompleted = (id) => {
     router.push(`/checkout/${id}`);
   };
 
-  const handleDetail = id => {
+  const handleDetail = (id) => {
     router.push(`/user/order/${id}`);
   };
 
@@ -51,10 +54,8 @@ export default function UserOrderPage() {
     <div className="w-full">
       <h1 className="text-2xl font-bold mb-4">My Order</h1>
       {/* card order */}
-      {checkout.map(items => (
-        <div
-          key={items.id}
-          className="card mb-4 w-full bg-base-100 shadow-md">
+      {checkout.map((items) => (
+        <div key={items.id} className="card mb-4 w-full bg-base-100 shadow-md">
           <div className="card-head flex justify-between p-3 border-b-2">
             <h3 className="order">Order ID: {items.id}</h3>
             <h3 className="order">{items.updatedAt.slice(0, 10)}</h3>
@@ -63,15 +64,14 @@ export default function UserOrderPage() {
               <span className="font-bold text-orange-600">{items.status}</span>
             </h3>
           </div>
-          {items.checkout.map(checkoutByCity => (
+          {items.checkout.map((checkoutByCity) => (
             <div
               key={checkoutByCity.id}
-              className="card-body p-3 m-2 bg-gray-50 rounded-md">
+              className="card-body p-3 m-2 bg-gray-50 rounded-md"
+            >
               {/* <p>City: {checkoutByCity.checkout_item[0].id}</p> */}
-              {checkoutByCity.checkout_item.map(checkoutItem => (
-                <div
-                  key={checkoutItem.id}
-                  className="list-order flex">
+              {checkoutByCity.checkout_item.map((checkoutItem) => (
+                <div key={checkoutItem.id} className="list-order flex">
                   {/* {console.log(checkoutItem.product.product_image)} */}
                   <div className="product-title flex text-sm md:text-base min-w-[50%] items-center">
                     <img
@@ -199,19 +199,22 @@ export default function UserOrderPage() {
             items.payment?.payment_status === "FAILED" ? (
               <button
                 onClick={() => handleDetail(items.payment.id)}
-                className="mt-4 px-3 py-2 bg-green-300 duration-300 hover:bg-green-400 rounded-md shadow-sm w-full text-black font-semibold">
+                className="mt-4 px-3 py-2 bg-green-300 duration-300 hover:bg-green-400 rounded-md shadow-sm w-full text-black font-semibold"
+              >
                 Detail
               </button>
             ) : items.status === "UNCOMPLETED" ? (
               <button
                 onClick={() => handleUncompleted(items.id)}
-                className="mt-4 px-3 py-2 bg-green-300 duration-300 hover:bg-green-400 rounded-md shadow-sm w-full text-black font-semibold">
+                className="mt-4 px-3 py-2 bg-green-300 duration-300 hover:bg-green-400 rounded-md shadow-sm w-full text-black font-semibold"
+              >
                 Selesaikan Pembayaran
               </button>
             ) : (
               <button
                 onClick={() => handlePending(items.payment.id)}
-                className="mt-4 px-3 py-2 bg-green-300 duration-300 hover:bg-green-400 rounded-md shadow-sm w-full text-black font-semibold">
+                className="mt-4 px-3 py-2 bg-green-300 duration-300 hover:bg-green-400 rounded-md shadow-sm w-full text-black font-semibold"
+              >
                 Selesaikan Pembayaran
               </button>
             )}

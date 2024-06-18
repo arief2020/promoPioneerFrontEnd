@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export default function AvatarAdmin() {
   const [avatar, setAvatar] = useState(null);
@@ -9,13 +9,16 @@ export default function AvatarAdmin() {
 
   const getAvatar = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/users/bio', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
+      const res = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
       setAvatar(data.users.avatar);

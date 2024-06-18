@@ -1,23 +1,26 @@
-'use client';
-import { FaPen } from 'react-icons/fa6';
-import { FaRegTrashCan } from 'react-icons/fa6';
-import Link from 'next/link';
+"use client";
+import { FaPen } from "react-icons/fa6";
+import { FaRegTrashCan } from "react-icons/fa6";
+import Link from "next/link";
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function PromoTablePage() {
   const router = useRouter();
   const [promo, setPromo] = useState([]);
   useEffect(() => {
     const fetchPromo = async () => {
-      const promo = await fetch('http://localhost:5000/api/promo', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
+      const promo = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/promo",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await promo.json();
       console.log(data.promo);
       setPromo(data.promo);
@@ -27,16 +30,19 @@ export default function PromoTablePage() {
   // console.log(promo, "-----------")
   const handleDelete = async (id) => {
     console.log(id);
-    const promo = await fetch(`http://localhost:5000/api/promo/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
+    const promo = await fetch(
+      `https://api.promo-pioneer.msyaifullahalarief.my.id/api/promo/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
     const data = await promo.json();
     console.log(data);
-    if (data.message === 'success') {
+    if (data.message === "success") {
       setPromo((prevPromo) => prevPromo.filter((item) => item.id !== id));
     }
   };

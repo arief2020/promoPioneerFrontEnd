@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const UserTable = () => {
   const [users, setUsers] = useState([]);
@@ -10,26 +10,29 @@ const UserTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/users', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
+        const response = await fetch(
+          "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
         if (!response.ok) {
-          throw new Error('Failed to fetch users');
+          throw new Error("Failed to fetch users");
         }
         const data = await response.json();
 
         if (data && Array.isArray(data.users)) {
           setUsers(data.users);
         } else {
-          console.error('Fetched data is not an array:', data);
+          console.error("Fetched data is not an array:", data);
           setUsers([]);
         }
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
         setUsers([]);
       }
     };
@@ -61,7 +64,6 @@ const UserTable = () => {
             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
               View
             </th>
-            
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 text-center">
@@ -81,14 +83,21 @@ const UserTable = () => {
                   {user.email}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  <button className="btn bg-[#ea580c] text-white ml-2" onClick={() => handleViewUser(user.id)}>View</button>
+                  <button
+                    className="btn bg-[#ea580c] text-white ml-2"
+                    onClick={() => handleViewUser(user.id)}
+                  >
+                    View
+                  </button>
                 </td>
-                
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              <td
+                colSpan="6"
+                className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+              >
                 No users found
               </td>
             </tr>

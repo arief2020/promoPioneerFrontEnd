@@ -21,13 +21,16 @@ export default function PaymentPage({ params: { id } }) {
     setLoading(true);
     const fetchPayment = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/payments/${id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+        const res = await fetch(
+          `https://api.promo-pioneer.msyaifullahalarief.my.id/api/payments/${id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
         const data = await res.json();
         setPaymentList(data.payment);
       } catch (error) {
@@ -57,14 +60,14 @@ export default function PaymentPage({ params: { id } }) {
     fetchUniqueService();
   }, [paymentList]);
 
-  const handleImageUpload = async e => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     const imageData = new FormData();
     imageData.append("payment_proof", file);
     console.log(imageData);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/payments/proof/${id}`,
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/payments/proof/${id}`,
         {
           method: "PUT",
           headers: {
@@ -82,11 +85,11 @@ export default function PaymentPage({ params: { id } }) {
     }
   };
 
-  const handleFileChange = event => {
+  const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!selectedFile) {
@@ -100,7 +103,7 @@ export default function PaymentPage({ params: { id } }) {
     const uploadPaymentProof = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/payments/proof/${id}`,
+          `https://api.promo-pioneer.msyaifullahalarief.my.id/api/payments/proof/${id}`,
           {
             method: "PUT",
             credentials: "include",
@@ -133,7 +136,7 @@ export default function PaymentPage({ params: { id } }) {
     if (!checkouts) return;
 
     const uniqueServices = new Set();
-    checkouts.forEach(checkout => {
+    checkouts.forEach((checkout) => {
       if (checkout.shippingCheckout && checkout.shippingCheckout.name) {
         uniqueServices.add(checkout.shippingCheckout.name);
       }
@@ -161,15 +164,11 @@ export default function PaymentPage({ params: { id } }) {
         {/* Mobile */}
         <div className="my-4 px-4 border border-slate-200 rounded-md shadow-md md:hidden">
           {paymentList?.checkout_colection?.checkout &&
-            paymentList.checkout_colection.checkout.map(listing => (
+            paymentList.checkout_colection.checkout.map((listing) => (
               // List product checkout
-              <div
-                key={listing.id}
-                className="py-4 border-b border-slate-200">
-                {listing.checkout_item.map(item => (
-                  <div
-                    key={item.id}
-                    className="flex text-sm gap-3 mb-2">
+              <div key={listing.id} className="py-4 border-b border-slate-200">
+                {listing.checkout_item.map((item) => (
+                  <div key={item.id} className="flex text-sm gap-3 mb-2">
                     <img
                       src={item.product.product_image}
                       width={96}
@@ -197,7 +196,7 @@ export default function PaymentPage({ params: { id } }) {
                 ))}
                 <div className="flex flex-row justify-between text-sm font-bold pt-2 text-orange-700">
                   <p>Subtotal Product</p>
-                  {listing.checkout_item.map(item => (
+                  {listing.checkout_item.map((item) => (
                     <p key={item.id}>
                       Rp{" "}
                       {item.total_specific_price.toLocaleString("id-ID", {
@@ -255,15 +254,14 @@ export default function PaymentPage({ params: { id } }) {
           </div>
           <div className="px-4 rounded-md shadow-md border border-slate-300 my-2">
             {paymentList?.checkout_colection?.checkout &&
-              paymentList.checkout_colection.checkout.map(listing => (
+              paymentList.checkout_colection.checkout.map((listing) => (
                 // List product checkout
                 <div
                   key={listing.id}
-                  className="w-full py-6 border-b border-slate-300">
-                  {listing.checkout_item.map(item => (
-                    <div
-                      key={item.id}
-                      className="flex text-black w-full">
+                  className="w-full py-6 border-b border-slate-300"
+                >
+                  {listing.checkout_item.map((item) => (
+                    <div key={item.id} className="flex text-black w-full">
                       <div className="flex w-[40%] gap-4">
                         <img
                           src={item.product.product_image}
@@ -336,7 +334,8 @@ export default function PaymentPage({ params: { id } }) {
         <form
           onSubmit={handleSubmit}
           className="text-sm mt-4 items-center flex flex-col sm:flex-row justify-center gap-5 border border-slate-200 p-4 shadow-md rounded-md mb-6
-          ">
+          "
+        >
           <div className="w-full flex flex-col h-full items-center mx-auto">
             <div className="mx-auto text-center">
               <p className="mb-3">Upload Proof of Payment</p>
@@ -361,23 +360,20 @@ export default function PaymentPage({ params: { id } }) {
             )}
             <button
               type="submit"
-              className="bg-gradient-to-l from-orange-600 to-orange-500 max-w-80 mt-4 text-white shadow-md rounded-md px-5 py-2 font-bold hover:opacity-70 duration-300 w-full">
+              className="bg-gradient-to-l from-orange-600 to-orange-500 max-w-80 mt-4 text-white shadow-md rounded-md px-5 py-2 font-bold hover:opacity-70 duration-300 w-full"
+            >
               Pay
             </button>
           </div>
         </form>
       </div>
 
-      <dialog
-        id="my_modal_1"
-        className="modal">
+      <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Your order is placed!</h3>
           <p className="py-4">Thanks for shopping with us</p>
           <div className="modal-action">
-            <form
-              onClick={handlePushOrderRoute}
-              method="dialog">
+            <form onClick={handlePushOrderRoute} method="dialog">
               <button className="bg-slate-800 text-white rounded-md shadow-md px-3 py-2">
                 Close
               </button>

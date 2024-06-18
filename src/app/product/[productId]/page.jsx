@@ -15,7 +15,7 @@ const DetailCard = () => {
     const fetchProductDetail = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/${productId}`
+          `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products/${productId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch product detail");
@@ -37,7 +37,7 @@ const DetailCard = () => {
   const fetchProductsByCategory = async (categoryId, productId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/products?categories=${categoryId}`,
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products?categories=${categoryId}`,
         {
           method: "GET",
           headers: {
@@ -51,7 +51,9 @@ const DetailCard = () => {
       }
       const data = await response.json();
       console.log("Filtered Data:", data.products);
-      const filteredProducts = data.products.filter(item => item.id !== productId);
+      const filteredProducts = data.products.filter(
+        (item) => item.id !== productId
+      );
       setRelatedProducts(filteredProducts);
     } catch (error) {
       console.error("Error fetching related products:", error);
@@ -61,7 +63,7 @@ const DetailCard = () => {
 
   const handleCheckout = async () => {
     try {
-      const url = `http://localhost:5000/api/checkouts/products/${product.id}`;
+      const url = `https://api.promo-pioneer.msyaifullahalarief.my.id/api/checkouts/products/${product.id}`;
       const response = await fetch(url, {
         method: "POST",
         credentials: "include",
@@ -69,19 +71,17 @@ const DetailCard = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          quantity: quantity, 
+          quantity: quantity,
         }),
       });
       const data = await response.json();
-  
+
       const checkoutId = data.checkoutColection.id;
-      router.push(`/checkout/${checkoutId}`); 
+      router.push(`/checkout/${checkoutId}`);
     } catch (error) {
       console.log(error);
     }
   };
-  
-
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -95,7 +95,7 @@ const DetailCard = () => {
 
   const handleAddCart = async () => {
     try {
-      const url = `http://localhost:5000/api/carts/cart-items`;
+      const url = `https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts/cart-items`;
       const response = await fetch(url, {
         method: "POST",
         credentials: "include",

@@ -1,13 +1,16 @@
 const storeCarts = async () => {
   try {
-    const res = await fetch('http://localhost:5000/api/checkouts/carts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(),
-    });
+    const res = await fetch(
+      "https://api.promo-pioneer.msyaifullahalarief.my.id/api/checkouts/carts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(),
+      }
+    );
     const data = await res.json();
     // console.log(res);
     return { data, res };
@@ -18,13 +21,16 @@ const storeCarts = async () => {
 
 const fetchCheckouts = async (id) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/checkouts/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
+    const res = await fetch(
+      `https://api.promo-pioneer.msyaifullahalarief.my.id/api/checkouts/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     return data.getCheckCollection;
   } catch (error) {
@@ -34,13 +40,16 @@ const fetchCheckouts = async (id) => {
 
 const fetchCities = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/cities`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
+    const res = await fetch(
+      `https://api.promo-pioneer.msyaifullahalarief.my.id/api/cities`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     return data.city;
   } catch (error) {
@@ -50,13 +59,16 @@ const fetchCities = async () => {
 
 const fetchBio = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/users/bio`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
+    const res = await fetch(
+      `https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     return data.users;
   } catch (error) {
@@ -66,16 +78,19 @@ const fetchBio = async () => {
 
 const fetchPostPayment = async (id) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/payments`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-        checkoutColectionId: +id,
-      }),
-    });
+    const res = await fetch(
+      `https://api.promo-pioneer.msyaifullahalarief.my.id/api/payments`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          checkoutColectionId: +id,
+        }),
+      }
+    );
     const data = res.json();
     return data;
   } catch (error) {
@@ -84,14 +99,17 @@ const fetchPostPayment = async (id) => {
 };
 
 const fecthChangeAddress = async (newAddress) => {
-  await fetch(`http://localhost:5000/api/users/change-address`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify(newAddress),
-  });
+  await fetch(
+    `https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/change-address`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newAddress),
+    }
+  );
 };
 
 module.exports = {

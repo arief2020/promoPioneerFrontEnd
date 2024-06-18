@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { FaFileUpload } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
-import toast, { Toaster } from 'react-hot-toast';
+import { useEffect, useState } from "react";
+import { FaFileUpload } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function CreateProduct() {
   const [formData, setFormData] = useState({
-    name: '',
-    categoryId: '',
-    price: '',
-    description: '',
-    warehouseName: '',
-    warehouseFullAddress: '',
-    warehouseCityId: '',
+    name: "",
+    categoryId: "",
+    price: "",
+    description: "",
+    warehouseName: "",
+    warehouseFullAddress: "",
+    warehouseCityId: "",
     product_image: null,
-    weight: '',
-    stock: '',
+    weight: "",
+    stock: "",
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -31,28 +31,32 @@ export default function CreateProduct() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/categories`);
+      const response = await fetch(
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/categories`
+      );
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       setCategories(data.category || []);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
       setCategories([]);
     }
   };
 
   const fetchCities = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/cities`);
+      const response = await fetch(
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/cities`
+      );
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       setCities(data.city || []);
     } catch (error) {
-      console.error('Error fetching cities:', error);
+      console.error("Error fetching cities:", error);
       setCities([]);
     }
   };
@@ -84,36 +88,39 @@ export default function CreateProduct() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/products`, {
-        method: 'POST',
-        body: data,
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products`,
+        {
+          method: "POST",
+          body: data,
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
-        toast.success('Successfully added product');
+        toast.success("Successfully added product");
         setFormData({
-          name: '',
-          categoryId: '',
-          price: '',
-          description: '',
-          warehouseName: '',
-          warehouseFullAddress: '',
-          warehouseCityId: '',
+          name: "",
+          categoryId: "",
+          price: "",
+          description: "",
+          warehouseName: "",
+          warehouseFullAddress: "",
+          warehouseCityId: "",
           product_image: null,
-          weight: '',
+          weight: "",
           stock: 0,
         });
         setSelectedFile(null);
         router.push(`/dashboard/product`);
       } else {
         const errorData = await response.json();
-        console.error('Failed to add product:', errorData);
+        console.error("Failed to add product:", errorData);
         alert(`Failed to add product: ${errorData.message}`);
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while adding the product');
+      console.error("Error:", error);
+      alert("An error occurred while adding the product");
     }
   };
 

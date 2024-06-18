@@ -1,22 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { FaUser } from 'react-icons/fa6';
-import { BsCartCheckFill } from 'react-icons/bs';
-import { FaSignOutAlt } from 'react-icons/fa';
+"use client";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { FaUser } from "react-icons/fa6";
+import { BsCartCheckFill } from "react-icons/bs";
+import { FaSignOutAlt } from "react-icons/fa";
 
 export default function ProfileSidebar() {
   const [user, setUser] = useState({});
   useEffect(() => {
     const fetchBio = async () => {
-      const bio = await fetch('http://localhost:5000/api/users/bio', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
+      const bio = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await bio.json();
       console.log(data.users);
       setUser(data.users);

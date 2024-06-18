@@ -5,13 +5,16 @@ export default function TableOrder() {
   const [order, setOrder] = useState([]);
   useEffect(() => {
     const fetchOrder = async () => {
-      const order = await fetch("http://localhost:5000/api/checkouts", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const order = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/checkouts",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await order.json();
       console.log(data.checkout);
       setOrder(data.checkout);

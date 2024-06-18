@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import toast, { Toaster } from 'react-hot-toast';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Product() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [promoTypes, setPromoTypes] = useState([]);
-  const [selectedPromo, setSelectedPromo] = useState('');
+  const [selectedPromo, setSelectedPromo] = useState("");
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [itemsPromo, setItemsPromo] = useState({});
   const [shouldFetchProducts, setShouldFetchProducts] = useState(false);
@@ -30,10 +30,10 @@ export default function Product() {
   const fetchProducts = async (page) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/products?limit=10&page=${page}`
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products?limit=10&page=${page}`
       );
       const data = await response.json();
-      console.log(data.products)
+      console.log(data.products);
       setProducts(data.products);
       setTotalProducts(data.totalProducts);
 
@@ -42,31 +42,30 @@ export default function Product() {
         initialItemsPromo[product.id] = false;
       });
       setItemsPromo(initialItemsPromo);
-
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     }
   };
 
   const fetchPromoTypes = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/promo-types/promo/2"
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/promo-types/promo/2"
       );
       const data = await response.json();
       console.log(data.promoType.promo, "ini promotrye");
       setPromoTypes(data.promoType.promo);
     } catch (error) {
-      console.error('Error fetching promo types:', error);
+      console.error("Error fetching promo types:", error);
     }
   };
 
   const handleAddPromo = () => {
-     const selectedItems = Object.entries(itemsPromo).filter(
-       ([key, value]) => value === true
-     );
-     console.log("Selected Items:", selectedItems);
-     setSelectedProduct(selectedItems)
+    const selectedItems = Object.entries(itemsPromo).filter(
+      ([key, value]) => value === true
+    );
+    console.log("Selected Items:", selectedItems);
+    setSelectedProduct(selectedItems);
 
     setIsModalOpen(true);
   };
@@ -82,14 +81,17 @@ export default function Product() {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      await fetch(`http://localhost:5000/api/products/${productId}`, {
-        method: "DELETE",
-        credentials: 'include'
-      });
-      toast.success('Successfully deleted product');
+      await fetch(
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products/${productId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+      toast.success("Successfully deleted product");
       fetchProducts(currentPage);
     } catch (error) {
-      console.error('Error deleting product:', error);
+      console.error("Error deleting product:", error);
     }
   };
 
@@ -111,25 +113,25 @@ export default function Product() {
 
   const handleSavePromo = async () => {
     if (!selectedPromo) {
-      alert('Please select a promo type.');
+      alert("Please select a promo type.");
       return;
     }
 
     console.log(selectedPromo, "promo id");
     console.log(selectedProduct, "product id");
 
-    for(let product of selectedProduct){
-      await fetchAddPromoProduct(parseInt(product[0]), parseInt(selectedPromo))
+    for (let product of selectedProduct) {
+      await fetchAddPromoProduct(parseInt(product[0]), parseInt(selectedPromo));
     }
     toast.success("Successfully add promo!");
     setShouldFetchProducts((prev) => !prev);
     setSelectedPromo("");
   };
 
-  const fetchAddPromoProduct = async (productId, promoId) =>{
+  const fetchAddPromoProduct = async (productId, promoId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/promo/products/${productId}`,
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/promo/products/${productId}`,
         {
           method: "POST",
           headers: {
@@ -139,12 +141,12 @@ export default function Product() {
         }
       );
       const data = await response.json();
-      console.log('Promotion Created:', data);
+      console.log("Promotion Created:", data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error creating promotion:', error);
+      console.error("Error creating promotion:", error);
     }
-  }
+  };
 
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
@@ -153,7 +155,6 @@ export default function Product() {
       ...prevItemsPromo,
       [id]: !prevItemsPromo[id],
     }));
-    
   };
 
   return (
@@ -178,9 +179,7 @@ export default function Product() {
       <table className="table">
         <thead className="bg-gray-200 text-gray-600">
           <tr>
-            <th>
-              
-            </th>
+            <th></th>
             <th>Name</th>
             <th>Price</th>
             <th className="text-center">Stock</th>

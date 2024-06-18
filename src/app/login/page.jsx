@@ -1,50 +1,53 @@
-'use client';
-import { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { useCookies } from 'react-cookie';
+"use client";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useCookies } from "react-cookie";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const router = useRouter();
-  const [_cookies, setCookies, _removeCookie] = useCookies(['accessToken']); // untuk simpan cookies
+  const [_cookies, setCookies, _removeCookie] = useCookies(["accessToken"]); // untuk simpan cookies
 
   // fetch post login
   const login = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {
         toast.error(data.message);
         return;
       }
-      if (data.role === 'ADMIN') {
-        setCookies('accessToken', data.accessToken);
-        toast.success('You are logged in as ADMIN', { duration: 3000 });
+      if (data.role === "ADMIN") {
+        setCookies("accessToken", data.accessToken);
+        toast.success("You are logged in as ADMIN", { duration: 3000 });
         setTimeout(() => {
-          router.push('/dashboard');
+          router.push("/dashboard");
         }, 3000);
       } else {
-        setCookies('accessToken', data.accessToken);
-        toast.success('Successful login', { duration: 3000 });
+        setCookies("accessToken", data.accessToken);
+        toast.success("Successful login", { duration: 3000 });
         setTimeout(() => {
-          router.push('/');
+          router.push("/");
         }, 3000);
       }
     } catch (error) {
       console.error(error);
-      toast.error('An error occurred. Please try again.');
+      toast.error("An error occurred. Please try again.");
     }
   };
 
@@ -65,7 +68,7 @@ export default function LoginPage() {
       <Toaster
         position="top-center"
         reverseOrder={false}
-        containerStyle={{ marginTop: '65px' }}
+        containerStyle={{ marginTop: "65px" }}
       />
       <div className="max-w-md w-full space-y-16">
         <div>

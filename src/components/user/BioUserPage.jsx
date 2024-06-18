@@ -1,20 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+"use client";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function BioUserPage() {
   const router = useRouter();
   const [user, setUser] = useState({});
   useEffect(() => {
     const fetchBio = async () => {
-      const bio = await fetch('http://localhost:5000/api/users/bio', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
+      const bio = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await bio.json();
       // console.log(data.users);
       setUser(data.users);
@@ -22,9 +25,9 @@ export default function BioUserPage() {
     fetchBio();
   }, []);
   const handleClick = async () => {
-    router.push('/user/bio/update');
+    router.push("/user/bio/update");
     // try {
-    //   const login = await fetch("http://localhost:5000/api/auth/login", {
+    //   const login = await fetch("https://api.promo-pioneer.msyaifullahalarief.my.id/api/auth/login", {
     //     method: "POST",
     //     credentials: "include",
     //     headers: {
@@ -66,30 +69,30 @@ export default function BioUserPage() {
           </div>
           <div className="field-detail">
             <p className="mb-2">
-              {': '}
+              {": "}
               {user.name}
             </p>
             <p className="mb-2">
-              {': '}
+              {": "}
               {user.age}
             </p>
             <p className="mb-2">
-              {': '}
+              {": "}
               {user.gender}
             </p>
             <p className="mb-2">
-              {': '}
+              {": "}
               {user.full_address}
             </p>
             <p className="mb-2">
-              {': '}
+              {": "}
               {user.phone_number}
             </p>
             <p className="mb-2">
-              {': '}
+              {": "}
               {user.email}
             </p>
-            <p className="mb-2">{': '}8JKDWZ</p>
+            <p className="mb-2">{": "}8JKDWZ</p>
           </div>
         </div>
         <button

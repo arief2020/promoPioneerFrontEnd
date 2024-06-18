@@ -1,12 +1,15 @@
 const fetchCarts = async (setIsLoading) => {
   try {
-    const res = await fetch('http://localhost:5000/api/carts', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
+    const res = await fetch(
+      "https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     return data.carts.cartItem;
   } catch (error) {
@@ -19,13 +22,13 @@ const fetchCarts = async (setIsLoading) => {
 const updateCartItem = async (itemId, newQuantity) => {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/carts/cart-items/${itemId}`,
+      `https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts/cart-items/${itemId}`,
       {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({ quantity: newQuantity }),
       }
     );
@@ -40,10 +43,10 @@ const updateCartItem = async (itemId, newQuantity) => {
 const deleteCartItem = async (itemId) => {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/carts/cart-items/${itemId}`,
+      `https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts/cart-items/${itemId}`,
       {
-        method: 'DELETE',
-        credentials: 'include',
+        method: "DELETE",
+        credentials: "include",
       }
     );
     const data = await res.json();

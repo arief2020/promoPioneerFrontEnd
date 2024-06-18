@@ -1,28 +1,31 @@
-'use client';
-import { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+"use client";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    affiliateCode: '',
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    affiliateCode: "",
   });
   const router = useRouter();
 
   const register = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
 
@@ -34,7 +37,7 @@ export default function RegisterPage() {
       return true;
     } catch (error) {
       console.error(error);
-      toast.error('An error occurred. Please try again.');
+      toast.error("An error occurred. Please try again.");
       return false;
     }
   };
@@ -48,9 +51,9 @@ export default function RegisterPage() {
     e.preventDefault();
     const success = await register();
     if (success) {
-      toast.success('Successfully created account', { duration: 2000 });
+      toast.success("Successfully created account", { duration: 2000 });
       setTimeout(() => {
-        router.push('/login');
+        router.push("/login");
       }, 2000);
     }
   };
@@ -60,7 +63,7 @@ export default function RegisterPage() {
       <Toaster
         position="top-center"
         reverseOrder={false}
-        containerStyle={{ marginTop: '65px' }}
+        containerStyle={{ marginTop: "65px" }}
       />
       <div className="max-w-md w-full space-y-8">
         <div>

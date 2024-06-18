@@ -36,7 +36,7 @@ export default function UpdateProduct() {
   const fetchProductDetails = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/products/${productId}`
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products/${productId}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -64,7 +64,9 @@ export default function UpdateProduct() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/categories`);
+      const response = await fetch(
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/categories`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -77,7 +79,9 @@ export default function UpdateProduct() {
 
   const fetchCities = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/cities`);
+      const response = await fetch(
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/cities`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -115,11 +119,14 @@ export default function UpdateProduct() {
     console.log(formData);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
-        method: "PUT",
-        body: data,
-        credentials: "include",
-      });
+      const response = await fetch(
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products/${id}`,
+        {
+          method: "PUT",
+          body: data,
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         toast.success("Successfully updated product");

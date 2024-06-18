@@ -1,17 +1,17 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
+"use client";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useDropzone } from "react-dropzone";
 
 export default function UpdateBioForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    name: '',
-    userCityId: '',
-    fullAddress: '',
-    age: '',
-    gender: '',
-    phoneNumber: '',
+    name: "",
+    userCityId: "",
+    fullAddress: "",
+    age: "",
+    gender: "",
+    phoneNumber: "",
     avatar: null,
   });
   const [cities, setCities] = useState([]);
@@ -19,15 +19,18 @@ export default function UpdateBioForm() {
   useEffect(() => {
     const fetchBio = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/users/bio', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
+        const response = await fetch(
+          "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
         const data = await response.json();
-        console.log(data, 'kdjklajdkla');
+        console.log(data, "kdjklajdkla");
         setFormData({
           name: data.users.name,
           userCityId: data.users.city_id,
@@ -39,7 +42,7 @@ export default function UpdateBioForm() {
         });
         // setFormData(data.users);
       } catch (error) {
-        console.error('Error fetching cities:', error);
+        console.error("Error fetching cities:", error);
       }
     };
 
@@ -49,17 +52,20 @@ export default function UpdateBioForm() {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/cities', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
+        const response = await fetch(
+          "https://api.promo-pioneer.msyaifullahalarief.my.id/api/cities",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         setCities(data.city);
       } catch (error) {
-        console.error('Error fetching cities:', error);
+        console.error("Error fetching cities:", error);
       }
     };
 
@@ -84,34 +90,37 @@ export default function UpdateBioForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = new FormData();
-    form.append('name', formData.name);
-    form.append('userCityId', formData.userCityId);
-    form.append('fullAddress', formData.fullAddress);
-    form.append('age', formData.age);
-    form.append('gender', formData.gender);
-    form.append('phoneNumber', formData.phoneNumber);
+    form.append("name", formData.name);
+    form.append("userCityId", formData.userCityId);
+    form.append("fullAddress", formData.fullAddress);
+    form.append("age", formData.age);
+    form.append("gender", formData.gender);
+    form.append("phoneNumber", formData.phoneNumber);
     if (formData.avatar) {
-      form.append('avatar', formData.avatar);
+      form.append("avatar", formData.avatar);
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/bio', {
-        method: 'PUT',
-        credentials: 'include',
-        body: form,
-      });
+      const response = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
+        {
+          method: "PUT",
+          credentials: "include",
+          body: form,
+        }
+      );
       const data = await response.json();
       console.log(data);
-      router.push('/user/bio');
+      router.push("/user/bio");
     } catch (error) {
-      console.error('Error updating bio:', error);
+      console.error("Error updating bio:", error);
     }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: handleDrop,
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif'],
+      "image/*": [".jpeg", ".jpg", ".png", ".gif"],
     },
     multiple: false,
   });
@@ -121,9 +130,7 @@ export default function UpdateBioForm() {
       <h2 className="text-2xl font-bold mb-4">Update Bio</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
             Name
           </label>
           <input
@@ -139,7 +146,8 @@ export default function UpdateBioForm() {
         <div className="mb-4">
           <label
             htmlFor="fullAddress"
-            className="block text-gray-700 font-bold mb-2">
+            className="block text-gray-700 font-bold mb-2"
+          >
             Full Address
           </label>
           <input
@@ -153,9 +161,7 @@ export default function UpdateBioForm() {
           />
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="age"
-            className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="age" className="block text-gray-700 font-bold mb-2">
             Age
           </label>
           <input
@@ -171,7 +177,8 @@ export default function UpdateBioForm() {
         <div className="mb-4">
           <label
             htmlFor="gender"
-            className="block text-gray-700 font-bold mb-2">
+            className="block text-gray-700 font-bold mb-2"
+          >
             Gender
           </label>
           <select
@@ -180,7 +187,8 @@ export default function UpdateBioForm() {
             value={formData.gender}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
-            required>
+            required
+          >
             <option value="">Select Gender</option>
             <option value="MALE">Male</option>
             <option value="FEMALE">Female</option>
@@ -189,7 +197,8 @@ export default function UpdateBioForm() {
         <div className="mb-4">
           <label
             htmlFor="userCityId"
-            className="block text-gray-700 font-bold mb-2">
+            className="block text-gray-700 font-bold mb-2"
+          >
             City
           </label>
           <select
@@ -198,12 +207,11 @@ export default function UpdateBioForm() {
             value={formData.userCityId}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
-            required>
+            required
+          >
             <option value="">Select City</option>
-            {cities.map(city => (
-              <option
-                key={city.id}
-                value={city.id}>
+            {cities.map((city) => (
+              <option key={city.id} value={city.id}>
                 {city.name}
               </option>
             ))}
@@ -212,7 +220,8 @@ export default function UpdateBioForm() {
         <div className="mb-4">
           <label
             htmlFor="phoneNumber"
-            className="block text-gray-700 font-bold mb-2">
+            className="block text-gray-700 font-bold mb-2"
+          >
             Phone Number
           </label>
           <input
@@ -228,14 +237,16 @@ export default function UpdateBioForm() {
         <div className="mb-4">
           <label
             htmlFor="avatar"
-            className="block text-gray-700 font-bold mb-2">
+            className="block text-gray-700 font-bold mb-2"
+          >
             Avatar
           </label>
           <div
             {...getRootProps()}
             className={`w-full p-4 border-2 border-dashed rounded ${
               isDragActive ? "border-blue-500" : "border-gray-300"
-            }`}>
+            }`}
+          >
             <input {...getInputProps()} />
             {isDragActive ? (
               <p className="text-center text-blue-500">
@@ -258,7 +269,8 @@ export default function UpdateBioForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-orange-500 text-white font-bold py-2 px-4 rounded hover:opacity-70 duration-300">
+          className="w-full bg-orange-500 text-white font-bold py-2 px-4 rounded hover:opacity-70 duration-300"
+        >
           Update Bio
         </button>
       </form>

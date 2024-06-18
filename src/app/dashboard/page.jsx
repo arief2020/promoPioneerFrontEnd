@@ -22,7 +22,7 @@ export default function Dashboard() {
   const fetchProducts = async (page) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/products?limit=${productsPerPage}&page=${page}`
+        `https://api.promo-pioneer.msyaifullahalarief.my.id/api/products?limit=${productsPerPage}&page=${page}`
       );
       const data = await response.json();
       setProducts(data.products);
@@ -35,10 +35,13 @@ export default function Dashboard() {
   const fetchStats = async () => {
     try {
       console.log("Starting fetch for stats...");
-      const response = await fetch("http://localhost:5000/api/payments/stats", {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/payments/stats",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
 
       console.log("Response status:", response.status);
 
@@ -90,8 +93,8 @@ export default function Dashboard() {
   }, [stats]);
 
   const formatNumber = (number) => {
-    return number.toLocaleString("id-ID")
-  }
+    return number.toLocaleString("id-ID");
+  };
 
   return (
     <div className="p-6">
@@ -105,7 +108,9 @@ export default function Dashboard() {
           </div>
           <div className="stat place-items-center text-center">
             <div className="stat-title">Total Revenue</div>
-            <div className="stat-value">Rp.{formatNumber(stats.totalRevenue)}</div>
+            <div className="stat-value">
+              Rp.{formatNumber(stats.totalRevenue)}
+            </div>
           </div>
           <div className="stat place-items-center text-center">
             <div className="stat-title">Failed Payments</div>

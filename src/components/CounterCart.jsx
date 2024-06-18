@@ -1,20 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export default function CounterCart() {
   const [count, setCount] = useState(null);
 
   const getCount = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/carts', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
+      const res = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       setCount(data.carts.cartItem.length);
     } catch (error) {
