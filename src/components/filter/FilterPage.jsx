@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import CardCategoryList from "@/components/category/CardCategoryList";
 import ReactPaginate from "react-paginate";
 import Stack from "@mui/material/Stack";
@@ -292,7 +292,9 @@ export default function FilterPage({ categoryParams }) {
           {newParams && (
             <div className="my-3">Search Product with keyword {newParams}</div>
           )}
-          <CardCategoryList data={data} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <CardCategoryList data={data} />
+          </Suspense>
         </div>
         {/* </div> */}
         {/* </div> */}
