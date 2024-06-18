@@ -1,4 +1,3 @@
-import DetailOrder from "@/components/dashboard/order/DetailOrder";
 import FilterPage from "@/components/filter/FilterPage";
 import React, { Suspense } from "react";
 import "tailwindcss/tailwind.css";
