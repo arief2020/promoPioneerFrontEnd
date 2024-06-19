@@ -6,6 +6,7 @@ export async function middleware(request) {
   const result = await isAuthenticated(request);
 
   if (!result) {
+    console.log("Not authenticated");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -14,6 +15,7 @@ export async function middleware(request) {
       result.payload.role == "USER" &&
       request.nextUrl.pathname.startsWith("/dashboard")
     ) {
+      console.log("role user");
       return NextResponse.redirect(new URL("/unauthorized", request.url));
     }
   } catch (error) {
