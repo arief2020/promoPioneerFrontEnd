@@ -27,11 +27,11 @@ export async function middleware(request) {
 
 export const config = {
   matcher: [
-    "/cart/:path*",
-    "/checkout/:path*",
-    "/payment/:path*",
-    "/dashboard/:path*",
-    "/order/:path*",
-    "/user/:path*",
+    // "/cart/:path*",
+    // "/checkout/:path*",
+    // "/payment/:path*",
+    // "/dashboard/:path*",
+    // "/order/:path*",
+    // "/user/:path*",
   ],
 };
