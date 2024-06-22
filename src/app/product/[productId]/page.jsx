@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import DetailProductCard from "@/components/DetailProductCard";
+import { useCookies } from "react-cookie";
 
 const DetailCard = () => {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -69,6 +71,7 @@ const DetailCard = () => {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${cookies.accessToken}`,
         },
         body: JSON.stringify({
           quantity: quantity,
@@ -101,6 +104,7 @@ const DetailCard = () => {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${cookies.accessToken}`
         },
         body: JSON.stringify({
           productId: product.id,
