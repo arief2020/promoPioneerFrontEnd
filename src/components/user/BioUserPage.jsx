@@ -2,6 +2,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 export default function BioUserPage() {
   const[cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);

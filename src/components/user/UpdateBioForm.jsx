@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import { useDropzone } from "react-dropzone";
 
 export default function UpdateBioForm() {
