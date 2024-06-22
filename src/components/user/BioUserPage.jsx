@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function BioUserPage() {
+  const[cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const router = useRouter();
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -14,6 +15,7 @@ export default function BioUserPage() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
         }

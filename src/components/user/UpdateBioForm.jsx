@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 
 export default function UpdateBioForm() {
+  const[cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -25,6 +26,7 @@ export default function UpdateBioForm() {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              authorization: `Bearer ${cookies.accessToken}`,
             },
             credentials: "include",
           }
@@ -106,6 +108,9 @@ export default function UpdateBioForm() {
         {
           method: "PUT",
           credentials: "include",
+          headers: {
+            authorization: `Bearer ${cookies.accessToken}`,
+          },
           body: form,
         }
       );

@@ -5,8 +5,11 @@ import React, { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { BsCartCheckFill } from "react-icons/bs";
 import { FaSignOutAlt } from "react-icons/fa";
+import { useCookies } from "react-cookie";
 
 export default function ProfileSidebar() {
+  const[cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
+  
   const [user, setUser] = useState({
     avatar:
       "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?size=338&ext=jpg&ga=GA1.1.2116175301.1718582400&semt=ais_user",
@@ -20,6 +23,7 @@ export default function ProfileSidebar() {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              authorization: `Bearer ${cookies.accessToken}`,
             },
             credentials: "include",
           }
