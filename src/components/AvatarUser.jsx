@@ -19,13 +19,14 @@ export default function AvatarUser({token}) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // authorization: `Bearer ${jwtAuth.value}`,
+            authorization: `Bearer ${token}`,
           },
           credentials: "include",
         }
       );
 
       const data = await res.json();
+      console.log(data.users, "hasil fetch di avatar user")
       setAvatar(data.users.avatar);
     } catch (error) {
       console.log(error);
