@@ -1,4 +1,4 @@
-const fetchCarts = async (setIsLoading) => {
+const fetchCarts = async (setIsLoading, token) => {
   try {
     const res = await fetch(
       "https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts",
@@ -6,6 +6,7 @@ const fetchCarts = async (setIsLoading) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         credentials: "include",
       }
@@ -19,7 +20,7 @@ const fetchCarts = async (setIsLoading) => {
   }
 };
 
-const updateCartItem = async (itemId, newQuantity) => {
+const updateCartItem = async (itemId, newQuantity, token) => {
   try {
     const res = await fetch(
       `https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts/cart-items/${itemId}`,
@@ -27,6 +28,7 @@ const updateCartItem = async (itemId, newQuantity) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         credentials: "include",
         body: JSON.stringify({ quantity: newQuantity }),
@@ -40,12 +42,15 @@ const updateCartItem = async (itemId, newQuantity) => {
   }
 };
 
-const deleteCartItem = async (itemId) => {
+const deleteCartItem = async (itemId, token) => {
   try {
     const res = await fetch(
       `https://api.promo-pioneer.msyaifullahalarief.my.id/api/carts/cart-items/${itemId}`,
       {
         method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
         credentials: "include",
       }
     );

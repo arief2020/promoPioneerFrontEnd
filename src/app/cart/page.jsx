@@ -10,8 +10,10 @@ import { useRouter } from "next/navigation";
 import { deleteCartItem, fetchCarts, updateCartItem } from "@/libs/fetch/carts";
 import { storeCarts } from "@/libs/fetch/checkouts";
 import toast, { Toaster } from "react-hot-toast";
+import { useCookies } from "react-cookie";
 
 export default function Cart() {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [cartList, setCartList] = useState([]); // Daftar carts
   const [isLoading, setIsLoading] = useState(true); // State loading
   const [disableCheckout, setDisableCheckout] = useState("");
@@ -20,7 +22,7 @@ export default function Cart() {
   // Rendering tampilan awal memuat daftar carts
   useEffect(() => {
     const loadCart = async () => {
-      const cartItems = await fetchCarts(setIsLoading);
+      const cartItems = await fetchCarts(setIsLoading, cookies.accessToken);
       if (cartItems) {
         setCartList(cartItems);
       }
@@ -34,7 +36,8 @@ export default function Cart() {
     newCartList[index].quantity += 1;
     const updatedItem = await updateCartItem(
       newCartList[index].id,
-      newCartList[index].quantity
+      newCartList[index].quantity, 
+      cookies.accessToken
     );
     if (updatedItem) {
       setCartList(newCartList);
@@ -48,7 +51,8 @@ export default function Cart() {
       newCartList[index].quantity -= 1;
       const updatedItem = await updateCartItem(
         newCartList[index].id,
-        newCartList[index].quantity
+        newCartList[index].quantity,
+        cookies.accessToken
       );
       if (updatedItem) {
         setCartList(newCartList);
@@ -65,7 +69,10 @@ export default function Cart() {
   // Menghapus item dari daftar cartList
   const handleDelete = async index => {
     const newCartList = [...cartList];
-    const deletedItem = await deleteCartItem(newCartList[index].id);
+    const deletedItem = await deleteCartItem(
+      newCartList[index].id,
+      cookies.accessToken
+    );
     if (deletedItem) {
       newCartList.splice(index, 1);
       setCartList(newCartList);

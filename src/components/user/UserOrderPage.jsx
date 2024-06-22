@@ -2,10 +2,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { BiLoaderCircle } from "react-icons/bi";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
 export default function UserOrderPage() {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const router = useRouter();
   const [checkout, setCheckout] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +21,7 @@ export default function UserOrderPage() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
         }
