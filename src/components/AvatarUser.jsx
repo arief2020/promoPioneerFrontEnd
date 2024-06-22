@@ -3,15 +3,15 @@
 
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
 export default function AvatarUser({token}) {
   const [avatar, setAvatar] = useState(null);
-  const cookieStore = cookies();
-  const jwtAuth = cookieStore.get("accessToken");
+  // const cookieStore = cookies();
+  // const jwtAuth = cookieStore.get("accessToken");
 
   const getAvatar = async () => {
-    console.log(jwtAuth)
+    // console.log(jwtAuth)
     try {
       const res = await fetch(
         "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
@@ -19,7 +19,7 @@ export default function AvatarUser({token}) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${jwtAuth.value}`,
+            // authorization: `Bearer ${jwtAuth.value}`,
           },
           credentials: "include",
         }
@@ -51,7 +51,7 @@ export default function AvatarUser({token}) {
 
   return (
     <>
-    {console.log(token, "ini token avataruser")}
+    {console.log(token, "ini token avatar")}
       {avatar ? (
         <div
           tabIndex={0}
