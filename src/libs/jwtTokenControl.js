@@ -1,7 +1,7 @@
 import * as jose from "jose";
 
 const jwtConfig = {
-  secret: new TextEncoder().encode("rahasiasekali"),
+  secret: new TextEncoder().encode(process.env.JWT_SECRET),
 };
 
 export const isAuthenticated = async req => {
