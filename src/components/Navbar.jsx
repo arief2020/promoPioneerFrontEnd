@@ -11,7 +11,7 @@ import AvatarUser from "./AvatarUser";
 import CounterCart from "./CounterCart";
 import getCategory from "@/libs/fetch/getCategory";
 
-export default function Navbar() {
+export default function Navbar({}) {
   const [search, setSearch] = useState('')
   const [isLogin, setIsLogin] = useState(false);
   const [categoriesList, setCategoriesList] = useState([]);

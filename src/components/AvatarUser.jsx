@@ -1,34 +1,45 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { getBio } from "@/libs/fetch/bio";
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 
 export default function AvatarUser() {
   const [avatar, setAvatar] = useState(null);
 
-  const getAvatar = async () => {
-    try {
-      const res = await fetch(
-        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+  // const getAvatar = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           // authorization: ``,
+  //         },
+  //         credentials: "include",
+  //       }
+  //     );
 
-      const data = await res.json();
-      setAvatar(data.users.avatar);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     const data = await res.json();
+  //     setAvatar(data.users.avatar);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
-    getAvatar();
+    const bio = async () => {
+      try {
+        const user = await getBio()
+        console.log(user, "avatar user")
+        setAvatar(user.avatar);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    bio()
   }, []);
 
   return (
