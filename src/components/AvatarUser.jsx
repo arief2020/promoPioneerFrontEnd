@@ -1,46 +1,53 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { getBio } from "@/libs/fetch/bio";
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { cookies } from "next/headers";
 
 export default function AvatarUser() {
   const [avatar, setAvatar] = useState(null);
+  const cookieStore = cookies();
+  const jwtAuth = cookieStore.get("accessToken");
 
-  // const getAvatar = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           // authorization: ``,
-  //         },
-  //         credentials: "include",
-  //       }
-  //     );
+  const getAvatar = async () => {
+    console.log(jwtAuth)
+    try {
+      const res = await fetch(
+        "https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${jwtAuth.value}`,
+          },
+          credentials: "include",
+        }
+      );
 
-  //     const data = await res.json();
-  //     setAvatar(data.users.avatar);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      const data = await res.json();
+      setAvatar(data.users.avatar);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const bio = async () => {
-      try {
-        const user = await getBio()
-        console.log(user, "avatar user")
-        setAvatar(user.avatar);
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    bio()
+    getAvatar();
   }, []);
+  
+  // useffect(() => {
+  //   const bio = async () => {
+  //     try {
+  //       const user = await getBio()
+  //       console.log(user, "avatar user")
+  //       setAvatar(user.avatar);
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   bio()
+  // }, []);
 
   return (
     <>
