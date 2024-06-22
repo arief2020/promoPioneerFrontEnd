@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 const allowedOrigins = [
   "https://acme.com",
   "https://my-app.org",
-  "https://api.promo-pioneer.msyaifullahalarief.my.id/*",
+  "https://api.promo-pioneer.msyaifullahalarief.my.id",
 ];
 
 const corsOptions = {
