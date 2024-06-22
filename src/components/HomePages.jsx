@@ -1,15 +1,4 @@
-// import HomePages from "@/components/HomePages";
-// import { cookies } from "next/headers";
-
-// export default function Home() {
-//   const cookieStore = cookies();
-//   const auth = cookieStore.get("accessToken");
-//   return <HomePages tokenCokies={auth}/>;
-// }
-
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
+import React from "react";
 import AOS from "aos";
 import CardProduct from "@/components/CardProduct";
 import Carousel from "@/components/Carousel";
@@ -18,7 +7,7 @@ import { useEffect, useState } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 import { RiDiscountPercentFill } from "react-icons/ri";
 
-export default function Home() {
+export default function HomePages({ tokenCokies }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productPromo, setProductsPromo] = useState([]);
