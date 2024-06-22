@@ -32,6 +32,6 @@ export const config = {
     // "/payment/:path*",
     // "/dashboard/:path*",
     // "/order/:path*",
-    // "/user/:path*",
+    "/user/:path*",
   ],
 };
