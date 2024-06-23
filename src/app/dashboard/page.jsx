@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import CardProduct from "@/components/CardProduct";
+import { useCookies } from "react-cookie";
 
 export default function Dashboard() {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -39,6 +41,9 @@ export default function Dashboard() {
         "https://api.promo-pioneer.msyaifullahalarief.my.id/api/payments/stats",
         {
           method: "GET",
+          headers:{
+            authorization: `Bearer ${cookies.accessToken}`,
+          },
           credentials: "include",
         }
       );

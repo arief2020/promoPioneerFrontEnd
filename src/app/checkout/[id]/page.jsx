@@ -13,8 +13,10 @@ import {
 } from "@/libs/fetch/checkouts";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import { useCookies } from "react-cookie";
 
 export default function Checkout({ params: { id } }) {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [checkoutList, setCheckoutList] = useState([]);
   const [citiesList, setCitiesList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,6 +38,7 @@ export default function Checkout({ params: { id } }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
         }
@@ -58,7 +61,7 @@ export default function Checkout({ params: { id } }) {
 
   // fetching get bio
   const loadBio = async () => {
-    const bioData = await fetchBio();
+    const bioData = await fetchBio(cookies.accessToken);
     if (bioData) {
       setBioList(bioData);
     }
@@ -73,6 +76,7 @@ export default function Checkout({ params: { id } }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
           body: JSON.stringify({ codeVoucher: voucher }),
@@ -99,7 +103,7 @@ export default function Checkout({ params: { id } }) {
     setLoading(true);
     // fetch get checkout by id
     const loadCheckouts = async () => {
-      const checkoutsData = await fetchCheckouts(id);
+      const checkoutsData = await fetchCheckouts(id, cookies.accessToken);
       if (checkoutsData) {
         setCheckoutList(checkoutsData);
         setLoading(false);
@@ -129,7 +133,7 @@ export default function Checkout({ params: { id } }) {
         fullAddress: `${fullAddress}, ${selectedCityName}`,
         cityId: +selectedCity,
       };
-      fecthChangeAddress(newAddress);
+      fecthChangeAddress(newAddress, cookies.accessToken);
     } catch (error) {
       console.log(error.message);
     }
@@ -166,7 +170,7 @@ export default function Checkout({ params: { id } }) {
   const handleOrder = async () => {
     try {
       setDisableOrder(true);
-      const data = await fetchPostPayment(id);
+      const data = await fetchPostPayment(id, cookies.accessToken);
       console.log(data);
       if (data && data.payment?.id) {
         const idURI = encodeURIComponent(JSON.stringify(data.payment.id));

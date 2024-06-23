@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
 
 const UserTable = () => {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [users, setUsers] = useState([]);
   const router = useRouter();
 
@@ -16,6 +18,7 @@ const UserTable = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              authorization: `Bearer ${cookies.accessToken}`,
             },
             credentials: "include",
           }

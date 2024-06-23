@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { BiLoaderCircle } from "react-icons/bi";
 
 export default function OrderDetailPage({ paymentId }) {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [payment, setPayment] = useState(null);
   const [cities, setCities] = useState([]);
 
@@ -39,6 +41,7 @@ export default function OrderDetailPage({ paymentId }) {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              authorization: `Bearer ${cookies.accessToken}`,
             },
             credentials: "include",
           }

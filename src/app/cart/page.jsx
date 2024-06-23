@@ -83,7 +83,7 @@ export default function Cart() {
   const handleCheckouts = async () => {
     try {
       setDisableCheckout(true);
-      const carts = await storeCarts(); // fungsi fetch untuk menyimpan checkouts
+      const carts = await storeCarts(cookies.accessToken); // fungsi fetch untuk menyimpan checkouts
       // console.log(carts.data);
 
       if (carts.res.status === 404) {

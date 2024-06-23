@@ -7,8 +7,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BiLoaderCircle } from "react-icons/bi";
+import { useCookies } from "react-cookie";
 
 export default function PaymentPage({ params: { id } }) {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [paymentList, setPaymentList] = useState({});
   const [shippingServiceList, setShippingServiceList] = useState([]);
   const [bioList, setBioList] = useState({});
@@ -27,6 +29,7 @@ export default function PaymentPage({ params: { id } }) {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              authorization: `Bearer ${cookies.accessToken}`,
             },
             credentials: "include",
           }
@@ -39,7 +42,7 @@ export default function PaymentPage({ params: { id } }) {
     };
 
     const loadBio = async () => {
-      const bioData = await fetchBio();
+      const bioData = await fetchBio(cookies.accessToken);
       if (bioData) {
         setBioList(bioData);
       }
@@ -72,6 +75,7 @@ export default function PaymentPage({ params: { id } }) {
           method: "PUT",
           headers: {
             "Content-Type": "multipart/form-data",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
           body: imageData,
@@ -107,6 +111,9 @@ export default function PaymentPage({ params: { id } }) {
           {
             method: "PUT",
             credentials: "include",
+            headers: {
+              authorization: `Bearer ${cookies.accessToken}`,
+            },
             body: formData,
           }
         );

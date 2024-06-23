@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function DetailUserPage({ userParams }) {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [user, setUser] = useState({});
   useEffect(() => {
     const fetchBio = async () => {
@@ -11,6 +12,7 @@ export default function DetailUserPage({ userParams }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
         }

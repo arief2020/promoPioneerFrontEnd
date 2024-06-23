@@ -2,8 +2,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 export default function AvatarAdmin() {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const [avatar, setAvatar] = useState(null);
   console.log(avatar);
 
@@ -15,6 +17,7 @@ export default function AvatarAdmin() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
         }

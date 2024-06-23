@@ -108,7 +108,7 @@ export default function Navbar() {
                       size={30}
                       className="text-white hover:opacity-80 duration-300 cursor-pointer"
                     />
-                    <CounterCart />
+                    <CounterCart token={cookies.accessToken}/>
                   </Link>
                 </div>
               </div>

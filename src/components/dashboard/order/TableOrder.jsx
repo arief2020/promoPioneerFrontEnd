@@ -1,8 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useCookies } from "react-cookie";
 export default function TableOrder() {
   const [order, setOrder] = useState([]);
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   useEffect(() => {
     const fetchOrder = async () => {
       const order = await fetch(
@@ -11,6 +13,7 @@ export default function TableOrder() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           credentials: "include",
         }

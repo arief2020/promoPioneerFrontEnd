@@ -1,4 +1,4 @@
-const storeCarts = async () => {
+const storeCarts = async (token) => {
   try {
     const res = await fetch(
       "https://api.promo-pioneer.msyaifullahalarief.my.id/api/checkouts/carts",
@@ -6,6 +6,7 @@ const storeCarts = async () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         credentials: "include",
         body: JSON.stringify(),
@@ -19,7 +20,7 @@ const storeCarts = async () => {
   }
 };
 
-const fetchCheckouts = async (id) => {
+const fetchCheckouts = async (id, token) => {
   try {
     const res = await fetch(
       `https://api.promo-pioneer.msyaifullahalarief.my.id/api/checkouts/${id}`,
@@ -27,6 +28,7 @@ const fetchCheckouts = async (id) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         credentials: "include",
       }
@@ -57,7 +59,7 @@ const fetchCities = async () => {
   }
 };
 
-const fetchBio = async () => {
+const fetchBio = async (token) => {
   try {
     const res = await fetch(
       `https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/bio`,
@@ -65,6 +67,7 @@ const fetchBio = async () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         credentials: "include",
       }
@@ -76,7 +79,7 @@ const fetchBio = async () => {
   }
 };
 
-const fetchPostPayment = async (id) => {
+const fetchPostPayment = async (id, token) => {
   try {
     const res = await fetch(
       `https://api.promo-pioneer.msyaifullahalarief.my.id/api/payments`,
@@ -84,6 +87,7 @@ const fetchPostPayment = async (id) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         credentials: "include",
         body: JSON.stringify({
@@ -98,13 +102,14 @@ const fetchPostPayment = async (id) => {
   }
 };
 
-const fecthChangeAddress = async (newAddress) => {
+const fecthChangeAddress = async (newAddress, token) => {
   await fetch(
     `https://api.promo-pioneer.msyaifullahalarief.my.id/api/users/change-address`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       credentials: "include",
       body: JSON.stringify(newAddress),

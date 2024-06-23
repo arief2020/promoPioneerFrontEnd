@@ -2,8 +2,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 export default function DetailOrder({ idPayment }) {
+  const [cookies, _setCookies, _removeCookie] = useCookies(["accessToken"]);
   const router = useRouter();
   const [payment, setPayment] = useState(null);
   const [cities, setCities] = useState([]);
@@ -40,6 +42,7 @@ export default function DetailOrder({ idPayment }) {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              authorization: `Bearer ${cookies.accessToken}`,
             },
             credentials: "include",
           }
@@ -62,6 +65,7 @@ export default function DetailOrder({ idPayment }) {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           body: JSON.stringify({
             paymentStatus: "SUCCESS",
@@ -87,6 +91,7 @@ export default function DetailOrder({ idPayment }) {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${cookies.accessToken}`,
           },
           body: JSON.stringify({
             paymentStatus: "FAILED",
