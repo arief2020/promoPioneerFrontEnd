@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function CounterCart() {
+export default function CounterCart({token}) {
   const [count, setCount] = useState(null);
 
   const getCount = async () => {
@@ -14,6 +14,7 @@ export default function CounterCart() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
           },
           credentials: "include",
         }
